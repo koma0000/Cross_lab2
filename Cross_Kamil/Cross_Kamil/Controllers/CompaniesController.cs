@@ -105,5 +105,12 @@ namespace Cross_Kamil.Controllers
         {
             return _context.Companys.Any(e => e.Id == id);
         }
+
+
+        [HttpGet("BusinessmenOfCompany")]
+        public Dictionary<string, List<string>> getBusinessmenOfCompany()
+        {
+            return _context.GetBusinessmenOfCompany();
+        }
     }
 }

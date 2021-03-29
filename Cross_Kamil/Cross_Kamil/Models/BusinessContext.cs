@@ -33,6 +33,25 @@ namespace Cross_Kamil.Models
                 .HasForeignKey(sc => sc.CompanyId);
         }
 
-        public DbSet<Cross_Kamil.Models.Business> Business { get; set; }
+ public Dictionary<string, List<string>> GetBusinessmenOfCompany()
+        {
+            Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Company).ToList();
+
+            Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
+
+            foreach (var c in Companys)
+            {
+                List<string> bussines_names = new List<string>();
+                var bussines = c.Businessmens.Select(sc => sc.Company).ToList();
+                foreach (Company a in bussines)
+                
+                    bussines_names.Add(a.Name);
+                
+
+                buf.Add(c.Name, bussines_names);                  
+
+            }
+            return buf;
+        }
     }
 }
