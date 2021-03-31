@@ -23,15 +23,16 @@ namespace Cross_Kamil.Controllers
 
         // GET: api/Businessmen
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<IEnumerable<Businessmen>>> GetBusinessmens()
         {
+            _context.BusinessmensInclude();
             return await _context.Businessmens.ToListAsync();
         }
 
         // GET: api/Businessmen/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<ActionResult<Businessmen>> GetBusinessmen(long id)
         {
             var businessmen = await _context.Businessmens.FindAsync(id);
@@ -42,6 +43,14 @@ namespace Cross_Kamil.Controllers
             }
 
             return businessmen;
+        }
+
+
+        [HttpGet("CompanyOfBusnesmen")]
+        [Authorize]
+        public Dictionary<string, List<string>> getCompanyOfBusnessmen()
+        {
+            return _context.GetCompanyOfBusinessmen();
         }
 
         // PUT: api/Businessmen/5
@@ -80,6 +89,7 @@ namespace Cross_Kamil.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Businessmen>> PostBusinessmen(Businessmen businessmen)
         {
             _context.Businessmens.Add(businessmen);
@@ -88,8 +98,19 @@ namespace Cross_Kamil.Controllers
             return CreatedAtAction("GetBusinessmen", new { id = businessmen.Id }, businessmen);
         }
 
+
+
+        [HttpPost("add/{bussnesmenId}/{companyId}")]
+        [Authorize(Roles = "admin")]
+        public string AddAppForUser(long bussnesmenId, long companyId)
+        {
+            return _context.SetBussinesmenOfComapany(bussnesmenId, companyId);
+        }
+
+
         // DELETE: api/Businessmen/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Businessmen>> DeleteBusinessmen(long id)
         {
             var businessmen = await _context.Businessmens.FindAsync(id);

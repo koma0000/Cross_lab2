@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cross_Kamil.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cross_Kamil.Controllers
 {
@@ -22,13 +23,24 @@ namespace Cross_Kamil.Controllers
 
         // GET: api/Companies
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Company>>> GetCompanys()
         {
+            _context.ComponyInclude();
             return await _context.Companys.ToListAsync();
         }
 
+        [HttpGet("BusnesmenOfCompany")]
+        [Authorize]
+        public Dictionary<string, List<string>> getBusnessmenOfCompany()
+        {
+            return _context.GetBusinessmenOfCompany();
+        }
+
+
         // GET: api/Companies/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Company>> GetCompany(long id)
         {
             var company = await _context.Companys.FindAsync(id);
@@ -45,6 +57,7 @@ namespace Cross_Kamil.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutCompany(long id, Company company)
         {
             if (id != company.Id)
@@ -77,6 +90,7 @@ namespace Cross_Kamil.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Company>> PostCompany(Company company)
         {
             _context.Companys.Add(company);
@@ -87,6 +101,7 @@ namespace Cross_Kamil.Controllers
 
         // DELETE: api/Companies/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<Company>> DeleteCompany(long id)
         {
             var company = await _context.Companys.FindAsync(id);
@@ -104,13 +119,6 @@ namespace Cross_Kamil.Controllers
         private bool CompanyExists(long id)
         {
             return _context.Companys.Any(e => e.Id == id);
-        }
-
-
-        [HttpGet("BusinessmenOfCompany")]
-        public Dictionary<string, List<string>> getBusinessmenOfCompany()
-        {
-            return _context.GetBusinessmenOfCompany();
         }
     }
 }

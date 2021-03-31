@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "4cc1d9c4-277d-40ef-b9d0-d2a334001c98",
+		"name": "Lab_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Добавление Бизнесменнов",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjE3MTg3NDMxLCJleHAiOjE2NDg3MjM0MzEsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.7alwcnu93ME_vVg2FXijYT09kE34UooySUhRjPDH7iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n       \r\n        \"name\": \"Kamil3\",\r\n        \"surname\": \"Khairzamanov\",\r\n        \"age\": 21\r\n      \r\n    }\r\n   \r\n    \r\n\r\n ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/Businessmen",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Businessmen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавление Компаний",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjE3MTg3NDMxLCJleHAiOjE2NDg3MjM0MzEsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.7alwcnu93ME_vVg2FXijYT09kE34UooySUhRjPDH7iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n     \"name\": \"Tat\",\r\n        \"proceeds\": 563685,\r\n        \"profit\": 568688\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/Companies",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Связать бизнесменов  и компании",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjE3MTg3NDMxLCJleHAiOjE2NDg3MjM0MzEsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.7alwcnu93ME_vVg2FXijYT09kE34UooySUhRjPDH7iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Businessmen/add/1/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Businessmen",
+						"add",
+						"1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Токен админа",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/auth/token/secret",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"token",
+						"secret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Токен пользователя",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/auth/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Просмотр все бизнесменов",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Imd1ZXN0IiwibmJmIjoxNjE3MTg3NTI5LCJleHAiOjE2NDg3MjM1MjksImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.MbN5ETBHyqFlo7GrxYDG8opz2IMbsXzKyeUTuNXHwo8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Businessmen",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Businessmen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Просмотр всех компанией",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Imd1ZXN0IiwibmJmIjoxNjE3MTg3NTI5LCJleHAiOjE2NDg3MjM1MjksImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.MbN5ETBHyqFlo7GrxYDG8opz2IMbsXzKyeUTuNXHwo8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Companies",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удаление компанией",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjE3MTg3NDMxLCJleHAiOjE2NDg3MjM0MzEsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.7alwcnu93ME_vVg2FXijYT09kE34UooySUhRjPDH7iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Companies/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Companies",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удаление Бизнесменов",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNjE3MTg3NDMxLCJleHAiOjE2NDg3MjM0MzEsImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.7alwcnu93ME_vVg2FXijYT09kE34UooySUhRjPDH7iI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Businessmen",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Businessmen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CompanyOfBusnesmen Запрос ( Кто каким бизнесом владеет)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Imd1ZXN0IiwibmJmIjoxNjE3MTg3NTI5LCJleHAiOjE2NDg3MjM1MjksImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.MbN5ETBHyqFlo7GrxYDG8opz2IMbsXzKyeUTuNXHwo8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Businessmen/CompanyOfBusnesmen",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Businessmen",
+						"CompanyOfBusnesmen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BusnesmenOfCompany Запрос (Учредители компаний)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlciIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Imd1ZXN0IiwibmJmIjoxNjE3MTg3NTI5LCJleHAiOjE2NDg3MjM1MjksImlzcyI6IlRNIiwiYXVkIjoiQVBJY2xpZW50cyJ9.MbN5ETBHyqFlo7GrxYDG8opz2IMbsXzKyeUTuNXHwo8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Companies/BusnesmenOfCompany",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Companies",
+						"BusnesmenOfCompany"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

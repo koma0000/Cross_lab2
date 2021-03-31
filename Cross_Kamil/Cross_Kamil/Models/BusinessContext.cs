@@ -33,25 +33,83 @@ namespace Cross_Kamil.Models
                 .HasForeignKey(sc => sc.CompanyId);
         }
 
- public Dictionary<string, List<string>> GetBusinessmenOfCompany()
+        public void BusinessmensInclude()
         {
-            Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Company).ToList();
+            Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList();
+        }
+
+        public void ComponyInclude()
+        {
+            Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Businessmen).ToList();
+        }
+
+         public string SetBussinesmenOfComapany( long bussnesmenId, long companyId)
+        {
+            
+            foreach (var u in Businessmens)
+            {
+                
+                if (u.Id == bussnesmenId)
+                {
+                    try
+                    {
+                        u.Companies.Add(new Business { CompanyId = companyId, BusinessmenId = u.Id });
+                        SaveChanges();
+                        return "Okey";
+                    }
+                    catch
+                    {
+                        return "Error. Item not inserted";
+                    }
+                    
+                }
+                
+            }
+
+            return "Error. Not Found this CompanyId";
+        }
+
+        public Dictionary<string, List<string>> GetBusinessmenOfCompany()
+        {
+            Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Businessmen).ToList();
 
             Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
 
             foreach (var c in Companys)
             {
-                List<string> bussines_names = new List<string>();
-                var bussines = c.Businessmens.Select(sc => sc.Company).ToList();
-                foreach (Company a in bussines)
-                
-                    bussines_names.Add(a.Name);
-                
+                List<string> com_names = new List<string>();
+                var com = c.Businessmens.Select(sc => sc.Businessmen).ToList();
+                foreach (Businessmen b in com)
+                 com_names.Add(b.Surname);
 
-                buf.Add(c.Name, bussines_names);                  
-
+                buf.Add(c.Name, com_names);
             }
+
             return buf;
+
+        }
+
+        public Dictionary<string, List<string>> GetCompanyOfBusinessmen()
+        {
+            Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList();
+
+            Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
+
+            foreach (var b in Businessmens)
+            {
+                List<string> bus_names = new List<string>();
+                var com = b.Companies.Select(sc => sc.Company).ToList();
+                foreach (Company c in com)
+                    bus_names.Add(c.Name);
+
+                buf.Add(b.Surname, bus_names);
+            }
+
+            return buf;
+
         }
     }
 }
+
+
+
