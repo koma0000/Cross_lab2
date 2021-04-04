@@ -16,6 +16,7 @@ namespace Cross_Kamil.Models
 
         public DbSet<Businessmen> Businessmens { get; set; }
         public DbSet<Company> Companys { get; set; }
+                
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -66,7 +67,7 @@ namespace Cross_Kamil.Models
                 
             }
 
-            return "Error. Not Found this CompanyId";
+            return "Error. Not Found this";
         }
 
         public Dictionary<string, List<string>> GetBusinessmenOfCompany()
@@ -83,6 +84,7 @@ namespace Cross_Kamil.Models
                  com_names.Add(b.Surname);
 
                 buf.Add(c.Name, com_names);
+                long k = com_names.Count();
             }
 
             return buf;
@@ -103,11 +105,43 @@ namespace Cross_Kamil.Models
                     bus_names.Add(c.Name);
 
                 buf.Add(b.Surname, bus_names);
+               
             }
 
             return buf;
 
         }
+
+
+
+        public Dictionary<string, long> GetForebs()
+        {
+            Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList();
+
+          Dictionary<string, long> buf = new Dictionary<string, long>();
+
+            Dictionary<string, List<string>> bu= new Dictionary<string, List<string>>();
+
+
+            foreach (var b in Businessmens)
+            {
+                List<long> profits = new List<long>();
+               
+                var com = b.Companies.Select(sc => sc.Company).ToList();
+                foreach (Company c in com)
+                profits.Add(c.Profit);
+                long prof = profits.ToArray().Sum();
+                long k = profits.Count();
+
+                buf.Add(b.Surname, prof / k);
+            }
+
+            return buf;
+
+            
+        }
+     
+
     }
 }
 

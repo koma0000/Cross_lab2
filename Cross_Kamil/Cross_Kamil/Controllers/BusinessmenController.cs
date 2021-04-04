@@ -53,6 +53,14 @@ namespace Cross_Kamil.Controllers
             return _context.GetCompanyOfBusinessmen();
         }
 
+
+        [HttpGet("GetForebs")]
+     //   [Authorize]
+        public Dictionary<string, long> getForebs()
+        {
+            return _context.GetForebs();
+        }
+
         // PUT: api/Businessmen/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -106,6 +114,14 @@ namespace Cross_Kamil.Controllers
         {
             return _context.SetBussinesmenOfComapany(bussnesmenId, companyId);
         }
+
+
+        //[HttpPost("add")]
+        //[Authorize(Roles = "admin")]
+        //public string AddAppForUser([FromForm] long bussnesmenId, [FromForm] long companyId)
+        //{
+        //    return _context.SetBussinesmenOfComapany(bussnesmenId, companyId);
+        //}
 
 
         // DELETE: api/Businessmen/5
