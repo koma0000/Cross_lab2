@@ -93,22 +93,28 @@ namespace Cross_Kamil.Models
 
         public Dictionary<string, List<string>> GetCompanyOfBusinessmen()
         {
-            Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList();
+            return new Dictionary<string, List<string>>
+                (Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList()
+                .Select(b => new KeyValuePair<string, List<string>>
+                    (b.Surname, 
+                    b.Companies.Select(c => c.Company.Name)
+                    .ToList()))
+                );
 
-            Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
+            //Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
 
-            foreach (var b in Businessmens)
-            {
-                List<string> bus_names = new List<string>();
-                var com = b.Companies.Select(sc => sc.Company).ToList();
-                foreach (Company c in com)
-                    bus_names.Add(c.Name);
+            //foreach (var b in Businessmens)
+            //{
+            //    List<string> bus_names = new List<string>();
+            //    var com = b.Companies.Select(sc => sc.Company).ToList();
+            //    foreach (Company c in com)
+            //        bus_names.Add(c.Name);
 
-                buf.Add(b.Surname, bus_names);
+            //    buf.Add(b.Surname, bus_names);
                
-            }
+            //}
 
-            return buf;
+            //return buf;
 
         }
 
@@ -120,25 +126,26 @@ namespace Cross_Kamil.Models
 
           Dictionary<string, long> buf = new Dictionary<string, long>();
 
-            Dictionary<string, List<string>> bu= new Dictionary<string, List<string>>();
-
-
+           
             foreach (var b in Businessmens)
             {
                 List<long> profits = new List<long>();
+                List<long> kolvo = new List<long>();
                
                 var com = b.Companies.Select(sc => sc.Company).ToList();
                 foreach (Company c in com)
                 profits.Add(c.Profit);
+
                 long prof = profits.ToArray().Sum();
                 long k = profits.Count();
 
-                buf.Add(b.Surname, prof / k);
+                buf.Add(b.Surname, prof);
+
             }
 
+                       
             return buf;
 
-            
         }
      
 
