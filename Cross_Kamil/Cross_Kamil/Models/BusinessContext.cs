@@ -60,7 +60,7 @@ namespace Cross_Kamil.Models
                     }
                     catch
                     {
-                        return "Error. Item not inserted";
+                        return "Error";
                     }
                     
                 }
@@ -72,22 +72,31 @@ namespace Cross_Kamil.Models
 
         public Dictionary<string, List<string>> GetBusinessmenOfCompany()
         {
-            Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Businessmen).ToList();
+            //Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Businessmen).ToList();
 
-            Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
+            //Dictionary<string, List<string>> buf = new Dictionary<string, List<string>>();
 
-            foreach (var c in Companys)
-            {
-                List<string> com_names = new List<string>();
-                var com = c.Businessmens.Select(sc => sc.Businessmen).ToList();
-                foreach (Businessmen b in com)
-                 com_names.Add(b.Surname);
+            //foreach (var c in Companys)
+            //{
+            //    List<string> com_names = new List<string>();
+            //    var com = c.Businessmens.Select(sc => sc.Businessmen).ToList();
+            //    foreach (Businessmen b in com)
+            //     com_names.Add(b.Surname);
 
-                buf.Add(c.Name, com_names);
-                long k = com_names.Count();
-            }
+            //    buf.Add(c.Name, com_names);
+            //    long k = com_names.Count();
+            //}
 
-            return buf;
+            //return buf;
+
+
+            return new Dictionary<string, List<string>>
+            (Companys.Include(c => c.Businessmens).ThenInclude(sc => sc.Businessmen).ToList()
+            .Select(b => new KeyValuePair<string, List<string>>
+                (b.Name,
+                b.Businessmens.Select(c => c.Businessmen.Surname)
+                .ToList()))
+            );
 
         }
 
@@ -124,27 +133,36 @@ namespace Cross_Kamil.Models
         {
             Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList();
 
-          Dictionary<string, long> buf = new Dictionary<string, long>();
+            Dictionary<string, long> buf = new Dictionary<string, long>();
 
-           
+
             foreach (var b in Businessmens)
             {
                 List<long> profits = new List<long>();
                 List<long> kolvo = new List<long>();
-               
+
                 var com = b.Companies.Select(sc => sc.Company).ToList();
                 foreach (Company c in com)
-                profits.Add(c.Profit);
+                    profits.Add(c.Profit);
 
                 long prof = profits.ToArray().Sum();
                 long k = profits.Count();
 
                 buf.Add(b.Surname, prof);
-
+                
             }
 
-                       
+
             return buf;
+
+
+            //return new Dictionary<string, long>
+            //   (Businessmens.Include(c => c.Companies).ThenInclude(sc => sc.Company).ToList()
+            //   .Select(b => new KeyValuePair<string,long>
+            //       (b.Surname,
+            //       b.Companies.Select(
+            //       .ToList()))
+            //   );
 
         }
      

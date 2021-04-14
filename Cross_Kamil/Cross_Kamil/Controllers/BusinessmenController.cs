@@ -108,20 +108,21 @@ namespace Cross_Kamil.Controllers
 
 
 
-        [HttpPost("add/{bussnesmenId}/{companyId}")]
-        [Authorize(Roles = "admin")]
-        public string AddAppForUser(long bussnesmenId, long companyId)
-        {
-            return _context.SetBussinesmenOfComapany(bussnesmenId, companyId);
-        }
-
-
-        //[HttpPost("add")]
+        //[HttpPost("add/{bussnesmenId}/{companyId}")]
         //[Authorize(Roles = "admin")]
-        //public string AddAppForUser([FromForm] long bussnesmenId, [FromForm] long companyId)
+        //public string AddAppForUser(long bussnesmenId, long companyId)
         //{
         //    return _context.SetBussinesmenOfComapany(bussnesmenId, companyId);
         //}
+
+
+        // add: pi/Businessmen/add 
+        [HttpPost("add")]
+        [Authorize(Roles = "admin")]
+        public string AddAppForUser([FromForm] long bussnesmenId, [FromForm] long companyId)
+        {
+            return _context.SetBussinesmenOfComapany(bussnesmenId, companyId);
+        }
 
 
         // DELETE: api/Businessmen/5
@@ -137,7 +138,6 @@ namespace Cross_Kamil.Controllers
 
             _context.Businessmens.Remove(businessmen);
             await _context.SaveChangesAsync();
-
             return businessmen;
         }
 
